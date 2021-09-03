@@ -37,6 +37,7 @@ class Result:
         self.importo = importo
         self.stato = stato
 
+        
 def elaborazione_risultato(risultato, f, pdf=None):
     v = vars(risultato)
     for d in v:
@@ -107,8 +108,6 @@ def contributi_finanziamenti_abruzzo(n):
     return pd.DataFrame({'Titolo': titoli, 'Descrizione': descrizione, 'Pubblicazione': pubblicazione,
     'Categoria': categorie, 'Scadenza': scadenze, "Più informazioni": link_allegati})
 
-#df = contributi_finanziamenti_abruzzo(3)
-#df.to_excel(r'C:\Users\super\Desktop\abruzzo.xlsx', index=False, header=True)
 
 def bollettino_abruzzo(n):
     chrome = webdriver.Chrome(CHROMEDRIVERPATH, options=opt)
@@ -120,7 +119,7 @@ def bollettino_abruzzo(n):
     categoria = []
     descrizione = []
     link_allegati = []
-    selezione = Select(chrome.find_element_by_id('ctl00_anno')) #devo impostare un anno per i bollettini
+    selezione = Select(chrome.find_element_by_id('ctl00_anno'))
     selezione.select_by_visible_text('2021')
     chrome.find_element_by_name('ctl00$ctl01').click()
     while(i<n):
@@ -163,9 +162,6 @@ def bollettino_abruzzo(n):
     f.close()
     return pd.DataFrame({'Bollettino': numeri, 'Descrizione': descrizione, 'Pubblicazione': pubblicazione,
     'Categoria': categoria, "Più informazioni": link_allegati})
-
-#df = bollettino_abruzzo(3)
-#df.to_excel(r'C:\Users\super\Desktop\abruzzo(1).xlsx', index=False, header=True)
 
 
 def bandi_campania(n):
@@ -233,9 +229,6 @@ def bandi_campania(n):
     'Ente proponente': Proponenti, 'Ente appaltante': Appaltanti, 'Importo': Importi,
     'Più informazioni': Dettagli})
 
-
-#df = bandi_campania(2)
-#df.to_excel(r'C:\Users\super\Desktop\campania.xlsx', index=False, header=True)
 
 def bollettino_campania(inizio, fine):
     chrome = webdriver.Chrome(CHROMEDRIVERPATH, options=opt)
@@ -308,8 +301,6 @@ def bollettino_campania(inizio, fine):
     f.close()
     return pd.DataFrame({'Bollettino': burcs, 'Titolo' : atti, 'Pubblicazione': datas, 'Più informazioni': pdfs})
 
-#df = bollettino_campania('5-gen-2021','20-gen-2021')
-#df.to_excel(r'C:\Users\super\Desktop\campania(1).xlsx', index=False, header=True)
 
 def bandi_emilia(n):
     chrome = webdriver.Chrome(CHROMEDRIVERPATH, options=opt)
@@ -371,9 +362,6 @@ def bandi_emilia(n):
     return pd.DataFrame({'Titolo' : titoli, 'Pubblicazione': pubblicazioni, 'Scadenza': scandenze,
     'Tipo': tipologia, 'Enti beneficiari': candidabili, 'Stato': stati, 'Più informazioni': piùInfo})
 
-#df = bandi_emilia(3)
-#df.to_excel(r'C:\Users\super\Desktop\emilia.xlsx', index=False, header=True)
-
 
 def bollettino_emilia(inizio, fine, n):
     chrome = webdriver.Chrome(CHROMEDRIVERPATH, options=opt)
@@ -427,9 +415,6 @@ def bollettino_emilia(inizio, fine, n):
     f.close()
     return pd.DataFrame({'Bollettino': numeri, 'Titolo': titoli, 'Descrizione': info,
     'Pubblicazione': pubblicazioni, 'Più informazioni': link})
-
-#df = bollettino_emilia('06/08/2021', '16/08/2021', 50)
-#df.to_excel(r'C:\Users\super\Desktop\emilia(1).xlsx', index=False, header=True)
 
         
 def bandi_liguria():
@@ -490,9 +475,6 @@ def bandi_liguria():
     return pd.DataFrame({'Titolo': titoli, 'Pubblicazione': pubblicazioni, 'Apertura': inizi,
     'Scadenza': scadenze, 'Enti beneficiari': beneficiari, 'Più informazioni': link})
 
-#df = bandi_liguria()
-#df.to_excel(r'C:\Users\super\Desktop\liguria.xlsx', index=False, header=True)
-
 
 def bollettino_liguria(numPag):
     chrome = webdriver.Chrome(CHROMEDRIVERPATH, options=opt)
@@ -537,6 +519,3 @@ def bollettino_liguria(numPag):
     f.close()
     return pd.DataFrame({'Bollettino': numeri, 'Titolo': supplementi, 'Pubblicazione': pubblicazioni,
     'Più informazioni': pdf})
-
-#df = bollettino_liguria(5)
-#df.to_excel(r'C:\Users\super\Desktop\liguria(1).xlsx', index=False, header=True)
